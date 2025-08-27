@@ -1,4 +1,4 @@
-# 🌐 Advanced IoT Edge-Fog-Cloud System v2.0
+# 🌐 Advanced IoT Edge Fog Cloud System
 ### *Professional-Grade Sensor Data Collection & Control with ESP32, Flask, and Django*
 
 <div align="center">
@@ -17,7 +17,7 @@
 
 ## 📋 Project Overview
 
-This project implements a **production-ready IoT Edge-Fog-Cloud system** with the following architecture:
+This project implements a **production-ready IoT Edge Fog Cloud system** with the following architecture:
 
 - **Edge Layer (ESP32)**: DHT11/DHT22 sensor nodes with LED control, WebSocket communication, and automatic threshold-based operation
 - **Fog Layer (Raspberry Pi + Flask)**: Intermediate processing server with WebSocket handling, data forwarding, and device command relay
@@ -83,7 +83,7 @@ This project implements a **production-ready IoT Edge-Fog-Cloud system** with th
 ## 🔧 Technical Specifications
 
 ### Hardware Requirements
-- **ESP32 Development Board** (ESP32-WROOM-32 or ESP32-DevKit)
+- **ESP32 Development Board** (ESP32-WROOM-32)
 - **DHT11/DHT22** Temperature & Humidity Sensors
 - **LED** with appropriate resistor (220Ω recommended)
 - **Breadboard** and jumper wires
