@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fan Control</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .connection-status {
+            position: relative;
+            margin: 0 auto 20px auto; /* space below */
+            width: fit-content;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+        }
+
+        .connection-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            background: #4caf50;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 450px;
+            width: 90%;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .status-display {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .fan-icon {
+            width: 80px;
+            height: 80px;
+            border: 4px solid white;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .fan-icon.spinning {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .status-text {
+            color: white;
+            font-size: 1.4em;
+            font-weight: bold;
+        }
+
+        .control-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .control-btn {
+            padding: 15px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .control-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .control-btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-on {
+            background: linear-gradient(45deg, #4caf50, #81c784);
+            color: white;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn-off {
+            background: linear-gradient(45deg, #f44336, #ef5350);
+            color: white;
+            box-shadow: 0 5px 15px rgba(244, 67, 54, 0.4);
+        }
+
+        .btn-auto {
+            background: linear-gradient(45deg, #ff9800, #ffb74d);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 152, 0, 0.4);
+        }
+
+        .control-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .control-btn:active {
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px;
+                margin: 20px;
+            }
+            
+            .control-buttons {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            h2 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="connection-status">
+        <span class="connection-dot"></span>Django Connected
+    </div>
+    
+    <div class="container">
+        <h2>Fan Control Panel</h2>
+        
+        <div class="status-display">
+            <div class="fan-icon" id="fanIcon">⚡</div>
+            <div class="status-text" id="statusText">Fan Status: Ready</div>
+        </div>
+
+        <div class="control-buttons">
+            <button class="control-btn btn-on" onclick="sendCommand('ON')">
+                ON
+            </button>
+            <button class="control-btn btn-off" onclick="sendCommand('OFF')">
+                OFF
+            </button>
+            <button class="control-btn btn-auto" onclick="sendCommand('AUTO')">
+                AUTO
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Your original Django script - preserved exactly
+        function sendCommand(cmd) {
+            fetch("/control/", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({command: cmd})
+            })
+            .then(res => res.json())
+            .then(data => alert(data.message || data.error))
+            .catch(err => console.error(err));
+        }
+
+        // Simple visual feedback for fan status
+        const originalSendCommand = sendCommand;
+        sendCommand = function(cmd) {
+            updateFanStatus(cmd);
+            originalSendCommand(cmd);
+        };
+
+        function updateFanStatus(status) {
+            const fanIcon = document.getElementById('fanIcon');
+            const statusText = document.getElementById('statusText');
+            
+            statusText.textContent = `Fan Status: ${status}`;
+            
+            if (status === 'ON') {
+                fanIcon.classList.add('spinning');
+                fanIcon.textContent = '🌀';
+                fanIcon.style.borderColor = '#4caf50';
+            } else if (status === 'OFF') {
+                fanIcon.classList.remove('spinning');
+                fanIcon.textContent = '⚡';
+                fanIcon.style.borderColor = '#f44336';
+            } else if (status === 'AUTO') {
+                fanIcon.classList.add('spinning');
+                fanIcon.textContent = '🤖';
+                fanIcon.style.borderColor = '#ff9800';
+            }
+        }
+    </script>
+</body>
+</html>
