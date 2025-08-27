@@ -470,7 +470,7 @@ Sent command AUTO to client
 
 ### 💬 **Get Help**
 - 📋 **GitHub Issues**: Technical problems and feature requests
-- 📧 **Email Support**: ishankahirushan@gmail.com
+- 📧 **Email Support**: ishankahirushan22@gmail.com
 - 💭 **Discussions**: Use GitHub Discussions for questions
 - 📖 **Documentation**: Comprehensive guides in `/docs` folder
 
@@ -479,10 +479,6 @@ Sent command AUTO to client
 - **Code Templates**: Starter code for new features  
 - **Testing Framework**: Comprehensive test suites
 - **CI/CD Pipeline**: Automated testing and deployment
-
-### 🌍 **Join Our Mission**
-
-> *"Building the next generation of IoT systems requires collaboration from developers worldwide. Whether you're a student learning IoT concepts or an industry expert, your contributions matter. Together, we're creating production-ready solutions that bridge the gap between academic research and real-world applications."*
 
 **Ready to contribute?** 
 1. ⭐ Star this repository
