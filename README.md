@@ -247,8 +247,6 @@ CREATE TABLE ControlLogs (
 - 🔍 **Device Status**: Connection status and last update time
 - 📋 **Command History**: Log of all control actions
 
-![Control Interface](https://raw.githubusercontent.com/ishankahirushan/EEX5346/main/UI/ControlPage.png)
-
 ### REST API Endpoints
 
 ```http
