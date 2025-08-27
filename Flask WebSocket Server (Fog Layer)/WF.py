@@ -1,8 +1,8 @@
-# WF_app.py
+# WF.py
 import requests
 import threading
 import asyncio
-import websockets  # type: ignore
+import websockets
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
@@ -11,7 +11,7 @@ CORS(app)
 
 latest_Temperature_level = None
 Setmode = "Manual"
-threshold = 40  # Temperature threshold
+threshold = 30  # Temperature threshold
 clients = set()  # Track connected WebSocket clients
 
 
